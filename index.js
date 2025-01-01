@@ -21,11 +21,11 @@ mongoose.connect(process.env.MONGO_URL)
 const app = express();
 const port = 8000;
 app.use(express.json());
-app.use(cors());
-// app.use(cors({
-//     origin: "*", 
-//     methods: ["get","post","put","patch","delete"]
-// }));
+// app.use(cors());
+app.use(cors({
+    origin: "http://localhost:5173/", 
+    methods: ["get","post","put","patch","delete"]
+}));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")))
 app.use("/assets", express.static(path.join(__dirname, "assets")))
 
