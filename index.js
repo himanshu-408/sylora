@@ -149,7 +149,7 @@ app.delete("/delete-image", async(req, res) => {
 
 // Add Travel Stroy
 app.post("/add-travel-story", authenticateToken, async(req, res) => {
-    const { title, story, visitedLocation, imageUrl, visitedDate } = req.body;
+    let { title, story, visitedLocation, imageUrl, visitedDate } = req.body;
     const { userId } = req.user
 
     if(!imageUrl){
