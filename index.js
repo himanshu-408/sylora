@@ -118,7 +118,7 @@ app.post("/image-upload", upload.single("image"), async(req, res) => {
 
         res.status(201).json({imageUrl});
     } catch(error){
-        res.status(500).json({error: true, message: error.message});
+        res.status(201).json({imageUrl : 'https://coffective.com/wp-content/uploads/2018/06/default-featured-image.png.jpg'});
     }
 })
 
