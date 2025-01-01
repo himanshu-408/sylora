@@ -152,6 +152,10 @@ app.post("/add-travel-story", authenticateToken, async(req, res) => {
     const { title, story, visitedLocation, imageUrl, visitedDate } = req.body;
     const { userId } = req.user
 
+    if(!imageUrl){
+        imageUrl= "https://coffective.com/wp-content/uploads/2018/06/default-featured-image.png.jpg"
+    }
+
     // Check if all fields are there
     if(!title || !story || !visitedLocation || !imageUrl || !visitedDate){
         return res.status(400).json({error: true, message: "All fields are required"});
