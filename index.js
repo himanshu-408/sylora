@@ -20,8 +20,17 @@ mongoose.connect(process.env.MONGO_URL)
 
 const app = express();
 const port = 8000;
+// app.use(cors());
 app.use(express.json());
-app.use(cors());
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*'); // Adjust for your needs
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(204); // Handles preflight request
+    }
+    next();
+});
 // app.use(cors({
 //     origin: "*", 
 //     methods: ["get","post","put","patch","delete"]
