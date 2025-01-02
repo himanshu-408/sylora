@@ -23,7 +23,7 @@ const port = 8000;
 app.use(express.json());
 app.use(cors());
 // app.use(cors({
-//     origin: "http://localhost:5173/", 
+//     origin: "*", 
 //     methods: ["get","post","put","patch","delete"]
 // }));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")))
@@ -118,7 +118,7 @@ app.post("/image-upload", upload.single("image"), async(req, res) => {
 
         res.status(201).json({imageUrl});
     } catch(error){
-        res.status(201).json({imageUrl : 'https://coffective.com/wp-content/uploads/2018/06/default-featured-image.png.jpg'});
+        res.status(500).json({error: true, message: error.message});
     }
 })
 
@@ -149,12 +149,8 @@ app.delete("/delete-image", async(req, res) => {
 
 // Add Travel Stroy
 app.post("/add-travel-story", authenticateToken, async(req, res) => {
-    let { title, story, visitedLocation, imageUrl, visitedDate } = req.body;
+    const { title, story, visitedLocation, imageUrl, visitedDate } = req.body;
     const { userId } = req.user
-
-    if(!imageUrl){
-        imageUrl= "https://coffective.com/wp-content/uploads/2018/06/default-featured-image.png.jpg"
-    }
 
     // Check if all fields are there
     if(!title || !story || !visitedLocation || !imageUrl || !visitedDate){
