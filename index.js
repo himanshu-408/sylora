@@ -256,16 +256,16 @@ app.delete("/delete-story/:id", authenticateToken, async(req, res) => {
         await travelStory.deleteOne({_id: id, userId: userId});
 
         // delete image
-        const imageUrl = travelStory.imageUrl;
-        const filename = path.basename(imageUrl);
-        const filePath = path.join(__dirname, 'uploads', filename);
+        // const imageUrl = travelStory.imageUrl;
+        // const filename = path.basename(imageUrl);
+        // const filePath = path.join(__dirname, 'uploads', filename);
 
-        fs.unlink(filePath, (err) => {
-            if(err){
-                return res.status(200).json({message: "Story Deleted"})
-            }
-        })
-        res.status(200).json({message: "Story Deleted"})
+        // fs.unlink(filePath, (err) => {
+        //     if(err){
+        //         return res.status(200).json({message: "Story Deleted"})
+        //     }
+        // })
+        // res.status(200).json({message: "Story Deleted"})
 
     } catch(error){
         return res.status(400).json({error: true, message: error.message});
