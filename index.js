@@ -265,7 +265,7 @@ app.delete("/delete-story/:id", authenticateToken, async(req, res) => {
         //         return res.status(200).json({message: "Story Deleted"})
         //     }
         // })
-        // res.status(200).json({message: "Story Deleted"})
+        res.status(200).json({message: "Story Deleted"})
 
     } catch(error){
         return res.status(400).json({error: true, message: error.message});
