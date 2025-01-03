@@ -158,8 +158,12 @@ app.delete("/delete-image", async(req, res) => {
 
 // Add Travel Stroy
 app.post("/add-travel-story", authenticateToken, async(req, res) => {
-    const { title, story, visitedLocation, imageUrl, visitedDate } = req.body;
+    let { title, story, visitedLocation, imageUrl, visitedDate } = req.body;
     const { userId } = req.user
+
+    if(!imageUrl){
+        imageUrl = "https://coffective.com/wp-content/uploads/2018/06/default-featured-image.png.jpg"
+    }
 
     // Check if all fields are there
     if(!title || !story || !visitedLocation || !imageUrl || !visitedDate){
@@ -221,7 +225,7 @@ app.put("/edit-story/:id", authenticateToken, async(req, res) => {
             return res.status(404).json({error: true, message: "Travel Story not found"});
         }
 
-        const placeholderImgUrl = `http://localhost:8000/assets/placeholder.jpg`
+        const placeholderImgUrl = `${process.env.SERVER_URL}/assets/placeholder.jpg`
         
         travelStory.title = title;
         travelStory.story = story;
